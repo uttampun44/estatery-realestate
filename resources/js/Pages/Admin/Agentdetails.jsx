@@ -1,6 +1,8 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 import Sidebar from '../../Components/Adminsidebar';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditNoteIcon from '@mui/icons-material/EditNote';
 
 function Agentdetails({auth, agentdetails}) {
   return (
@@ -32,6 +34,9 @@ function Agentdetails({auth, agentdetails}) {
                                     <tr key={agent.id} className='text-center border'>
                                         <td className='border p-2'>{index+1}</td>
                                         <td className='border p-2'>{agent.name}</td>
+                                        <td className='border p-2'>{agent.email}</td>
+                                        <td className='border p-2'><EditNoteIcon className='text-blue-600 text-xl cursor-pointer' /></td>
+                                        <td className='border p-2'><DeleteIcon className='text-red-500 tex-xl cursor-pointer' /></td>
                                     </tr>
                                  ))
                               }
