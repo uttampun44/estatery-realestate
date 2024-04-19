@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AgentsdetailsController;
 use App\Http\Controllers\Admin\AdmindashboardController;
 use App\Http\Controllers\Front\HomeController;
+use App\Http\Controllers\Admin\AddpropertiesController;
 use Inertia\Inertia;
 
 // Route::get('/', function () {
@@ -23,6 +24,8 @@ Route::get('/', HomeController::class)->name('front.home');
 Route::middleware(['auth', 'verified', 'admin'])->group( function(){
     Route::get('/admin/agent-details', [AgentsdetailsController::class, '__invoke']);
     Route::get('/admin/dashboard', [AdmindashboardController::class, '__invoke'])->name('dashboard');
+    Route::get('/admin/properties', [AddpropertiesController::class, 'index']);
+    Route::get('/admin/add-properties-category', [AddpropertiesController::class, 'create']);
 });
 
 
