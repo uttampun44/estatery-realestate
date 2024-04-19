@@ -13,7 +13,7 @@ function Adminsidebar() {
                      <ul className="grid gap-y-6">
                          <li className="hover:bg-indigo-500 hover:text-white p-2 rounded-md"><Link href="/admin/dashboard" aria-label="Dashboard" className="text-white font-sans font-bold text-xl">Dashboard</Link></li>
                          <li className="hover:bg-indigo-500 hover:text-white p-2 rounded-md"><Link href="/admin/agent-details" aria-label="Agents" className="text-white font-sans font-bold text-xl">Agents</Link></li>
-                         <li className="hover:bg-indigo-500 hover:text-white p-2 rounded-md"><Link href="" aria-label="Add Properties" className="text-white font-sans font-bold text-xl">Add Properties</Link></li>
+                         <li className="hover:bg-indigo-500 hover:text-white p-2 rounded-md"><Link href="/admin/properties" aria-label="Add Properties" className="text-white font-sans font-bold text-xl">Add Properties</Link></li>
                          <li className="hover:bg-indigo-500 hover:text-white p-2 rounded-md"><Link href="" aria-label="Add Properties" className="text-white font-sans font-bold text-xl">Message</Link></li>
                          <li className="hover:bg-indigo-500 hover:text-white p-2 rounded-md"><Link href="" aria-label="Add Properties" className="text-white font-sans font-bold text-xl">Reviews</Link></li>
                          <li className="hover:bg-indigo-500 hover:text-white p-2 rounded-md"><Link href="" aria-label="Properties" className="text-white font-sans font-bold text-xl">Properties</Link></li>

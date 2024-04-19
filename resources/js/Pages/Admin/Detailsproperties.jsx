@@ -1,22 +1,23 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import Sidebar from '../../Components/Adminsidebar';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 
-function Agentdetails({auth, agentdetails}) {
+function Agentdetails({auth}) {
   return (
     <div>
         <Sidebar />
         <AuthenticatedLayout
             user={auth.user} >
-            <Head title="Agent Details - Dashboard" />
+            <Head title="Properties Category - Dashboard" />
 
             <div className="py-12">
                 <div className="ml-48 mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg p-4">
-                     <div className='userDetails'>
-                        <strong className='text-2xl font-bold font-sans'>Agents Details</strong>
+                     <div className='userDetails flex justify-between'>
+                        <strong className='text-2xl font-bold font-sans'>Properties Details</strong>
+                        <Link href='/admin/add-properties-category' aria-label='add properties categories' className='bg-green-700 py-2 px-6 text-lg font-bold rounded-md text-white'>Add Properties Category</Link>
                     </div>
                        <table className='w-full table-auto my-4'>
                            <thead>
@@ -29,17 +30,10 @@ function Agentdetails({auth, agentdetails}) {
                                </tr>
                            </thead>
                            <tbody>
-                              {
-                                 agentdetails.map((agent, index) => (
-                                    <tr key={agent.id} className='text-center border'>
-                                        <td className='border p-2'>{index+1}</td>
-                                        <td className='border p-2'>{agent.name}</td>
-                                        <td className='border p-2'>{agent.email}</td>
-                                        <td className='border p-2'><EditNoteIcon className='text-blue-600 text-xl cursor-pointer' /></td>
-                                        <td className='border p-2'><DeleteIcon className='text-red-500 tex-xl cursor-pointer' /></td>
-                                    </tr>
-                                 ))
-                              }
+                                 <tr>
+                                    <td><EditNoteIcon /></td>
+                                    <td><DeleteIcon /></td>
+                                 </tr>
                            </tbody>
                        </table>
                     </div>
