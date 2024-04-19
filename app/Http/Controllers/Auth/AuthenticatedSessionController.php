@@ -40,8 +40,8 @@ class AuthenticatedSessionController extends Controller
                 case 1:
                     return redirect()->route('dashboard');
 
-                // case 2:
-                //     return redirect()->route('dashboard');
+                case 2:
+                    return redirect()->route('agent.dashboard');
             }
         }
 
