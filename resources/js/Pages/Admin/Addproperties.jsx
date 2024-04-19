@@ -23,7 +23,7 @@ function Addproperties({auth}) {
                                                 <input type="text" name="addproperties" placeholder="Add Properties" required className="my-4 rounded-md"/>
                                           </div>
                                           <div className="submit-button flex gap-x-4">
-                                                <button className="bg-green-700 text-lg font-bold py-2 px-2 text-white rounded-md">Add Properties</button> <Link href="/admin/dashboard" aria-label="cancel" className="bg-red-700 text-lg font-bold py-2 px-5 text-white rounded-md" >Cancel</Link>
+                                                <button className="bg-green-700 text-lg font-bold py-2 px-2 text-white rounded-md">Add Properties Category</button> <Link href="/admin/dashboard" aria-label="cancel" className="bg-red-700 text-lg font-bold py-2 px-5 text-white rounded-md" >Cancel</Link>
                                           </div>
                                     </div>
                                </form>

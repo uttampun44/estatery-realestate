@@ -7,6 +7,8 @@ use App\Http\Controllers\Admin\AgentsdetailsController;
 use App\Http\Controllers\Admin\AdmindashboardController;
 use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\Admin\AddpropertiesController;
+use App\Http\Controllers\Agent\AgentdashboardController;
+use App\Http\Controllers\Agent\AgentaddpropertiesController;
 use Inertia\Inertia;
 
 // Route::get('/', function () {
@@ -26,6 +28,11 @@ Route::middleware(['auth', 'verified', 'admin'])->group( function(){
     Route::get('/admin/dashboard', [AdmindashboardController::class, '__invoke'])->name('dashboard');
     Route::get('/admin/properties', [AddpropertiesController::class, 'index']);
     Route::get('/admin/add-properties-category', [AddpropertiesController::class, 'create']);
+});
+
+Route::middleware(['auth', 'verified', 'agents'])->group( function(){
+   Route::get('/agent/dashboard', [AgentdashboardController::class, '__invoke'])->name('agent.dashboard');
+   Route::get('/agent/add-properites', [AgentaddpropertiesController::class, 'create'])->name('agentproperties.create');
 });
 
 
