@@ -3,8 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Properties;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
+
+use function PHPUnit\Framework\returnSelf;
 
 class AddpropertiesController extends Controller
 {
@@ -13,7 +18,10 @@ class AddpropertiesController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Admin/Detailsproperties');
+         $properties_details = Properties::all();
+
+
+        return  Inertia::render('Admin/Detailsproperties')->with('properties', $properties_details);
     }
 
     /**
@@ -29,7 +37,15 @@ class AddpropertiesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $properties = Properties::create([
+             'properties_categories' => $request->input('add_properties'),
+             'properties_slug' => Str::slug($request->input('add_properties'))
+        ]);
+
+        $properties->save();
+
+        return redirect()->route('add-properties-category.index');
     }
 
     /**
@@ -45,7 +61,9 @@ class AddpropertiesController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $properties_id = Properties::findOrFail($id);
+
+        return Inertia::render('Admin/Editproperties')->with('properties_edit', $properties_id);
     }
 
     /**
@@ -53,7 +71,16 @@ class AddpropertiesController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+
+
+        $properties_update = Properties::findOrFail($id);
+
+        $properties_update->properties_categories = $request->input('add_properties');
+        $properties_update->properties_slug = Str::slug($request->input('add_properties'));
+
+        $properties_update->save();
+
+        return Redirect::route('add-properties-category.index');
     }
 
     /**
@@ -61,6 +88,14 @@ class AddpropertiesController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $properties_delete = Properties::findOrFail($id);
+
+
+        if($properties_delete)
+        {
+            $properties_delete->delete();
+
+            Redirect::route('add-properties-category.index');
+        }
     }
 }

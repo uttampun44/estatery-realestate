@@ -1,7 +1,7 @@
 import { Link } from "@inertiajs/react"
 import logo from '../../../public/images/logo.png';
 
-function Adminsidebar() {
+function Adminsidebar(props) {
   return (
     <div>
          <div className='sidebar bg-blue-900 fixed h-full px-5 py-8'>
@@ -11,12 +11,12 @@ function Adminsidebar() {
                <div className="aside my-8">
                <aside>
                      <ul className="grid gap-y-6">
-                         <li className="hover:bg-indigo-500 hover:text-white p-2 rounded-md"><Link href="/admin/dashboard" aria-label="Dashboard" className="text-white font-sans font-bold text-xl">Dashboard</Link></li>
+                         <li className="hover:bg-indigo-500 hover:text-white p-2 rounded-md"><Link href={route('dashboard')} aria-label="Dashboard" className="text-white font-sans font-bold text-xl">Dashboard</Link></li>
                          <li className="hover:bg-indigo-500 hover:text-white p-2 rounded-md"><Link href="/admin/agent-details" aria-label="Agents" className="text-white font-sans font-bold text-xl">Agents</Link></li>
-                         <li className="hover:bg-indigo-500 hover:text-white p-2 rounded-md"><Link href="/admin/properties" aria-label="Add Properties" className="text-white font-sans font-bold text-xl">Add Properties</Link></li>
+                         <li className="hover:bg-indigo-500 hover:text-white p-2 rounded-md"><Link href={route('add-properties-category.index')} method="get" aria-label="Add Properties" className="text-white font-sans font-bold text-xl">Add Properties</Link></li>
                          <li className="hover:bg-indigo-500 hover:text-white p-2 rounded-md"><Link href="" aria-label="Add Properties" className="text-white font-sans font-bold text-xl">Message</Link></li>
                          <li className="hover:bg-indigo-500 hover:text-white p-2 rounded-md"><Link href="" aria-label="Add Properties" className="text-white font-sans font-bold text-xl">Reviews</Link></li>
-                         <li className="hover:bg-indigo-500 hover:text-white p-2 rounded-md"><Link href="" aria-label="Properties" className="text-white font-sans font-bold text-xl">Properties</Link></li>
+                         <li className="hover:bg-indigo-500 hover:text-white p-2 rounded-md"><Link href="" aria-label="Properties" className="text-white font-sans font-bold text-xl">Total Properties</Link></li>
                      </ul>
                 </aside>
                </div>
