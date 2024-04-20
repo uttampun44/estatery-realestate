@@ -26,8 +26,8 @@ Route::get('/', HomeController::class)->name('front.home');
 Route::middleware(['auth', 'verified', 'admin'])->group( function(){
     Route::get('/admin/agent-details', [AgentsdetailsController::class, '__invoke']);
     Route::get('/admin/dashboard', [AdmindashboardController::class, '__invoke'])->name('dashboard');
-    Route::get('/admin/properties', [AddpropertiesController::class, 'index']);
-    Route::get('/admin/add-properties-category', [AddpropertiesController::class, 'create']);
+    Route::resource('/admin/add-properties-category', AddpropertiesController::class);
+
 });
 
 Route::middleware(['auth', 'verified', 'agents'])->group( function(){

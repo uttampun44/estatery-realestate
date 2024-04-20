@@ -3,8 +3,13 @@ import { Head, Link } from '@inertiajs/react';
 import Sidebar from '../../Components/Adminsidebar';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditNoteIcon from '@mui/icons-material/EditNote';
+import { Inertia } from '@inertiajs/inertia';
 
-function Agentdetails({auth}) {
+function Agentdetails({auth, properties}) {
+
+    const Deleteproperties = (id) =>{
+       Inertia.delete(route('add-properties-category.destroy', id))
+    }
   return (
     <div>
         <Sidebar />
@@ -17,23 +22,30 @@ function Agentdetails({auth}) {
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg p-4">
                      <div className='userDetails flex justify-between'>
                         <strong className='text-2xl font-bold font-sans'>Properties Details</strong>
-                        <Link href='/admin/add-properties-category' aria-label='add properties categories' className='bg-green-700 py-2 px-6 text-lg font-bold rounded-md text-white'>Add Properties Category</Link>
+                        <Link href={route('add-properties-category.create')} aria-label='add properties categories' className='bg-green-700 py-2 px-6 text-lg font-bold rounded-md text-white'>Add Properties Category</Link>
                     </div>
                        <table className='w-full table-auto my-4'>
                            <thead>
                                <tr className='border bg-indigo-500 text-white'>
                                    <th className='border p-2 font-bold text-lg'>S.no</th>
-                                   <th className='border p-2 font-bold text-lg'>Name</th>
-                                   <th className='border p-2 font-bold text-lg'>Email</th>
+                                   <th className='border p-2 font-bold text-lg'>Properties Type</th>
                                    <th className='border p-2 font-bold text-lg'>Update</th>
                                    <th className='border p-2 font-bold text-lg'>Delete</th>
                                </tr>
                            </thead>
                            <tbody>
-                                 <tr>
-                                    <td><EditNoteIcon /></td>
-                                    <td><DeleteIcon /></td>
-                                 </tr>
+                                {
+                                properties.map((property, index) => {
+                                        return (
+                                    <tr key={property.id} className='text-center'>
+                                        <td className='border p-2 font-bold text-lg'>{index+1}</td>
+                                        <td className='border p-2 font-bold text-lg'>{property.properties_categories}</td>
+                                        <td className='border p-2 font-bold text-lg cursor-pointer'><Link href={route('add-properties-category.edit', property.id)} method='get'><EditNoteIcon  /></Link></td>
+                                        <td className='border p-2 font-bold text-lg cursor-pointer'><button type='button' onClick={() => Deleteproperties(property.id)}><DeleteIcon /> </button></td>
+
+                                  </tr>
+                                 );
+                                  })}
                            </tbody>
                        </table>
                     </div>

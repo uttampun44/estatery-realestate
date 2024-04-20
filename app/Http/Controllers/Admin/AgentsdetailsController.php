@@ -18,7 +18,6 @@ class AgentsdetailsController extends Controller
     {
         $agentsdetails = User::where('role', 2)->get();
 
-
         return Inertia::render('Admin/Agentdetails')->with('agentdetails', $agentsdetails);
     }
 }
