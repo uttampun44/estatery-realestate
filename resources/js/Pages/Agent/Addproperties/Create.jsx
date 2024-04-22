@@ -2,7 +2,7 @@ import { Head,  Link } from "@inertiajs/react";
 import Sidebaragent from '../../../Components/Agentsidebar';
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 
-function Create({auth, users}) {
+function Create({auth, users, properties, options}) {
 
   return (
     <div>
@@ -17,20 +17,41 @@ function Create({auth, users}) {
                                    <form method="POST">
                                           <div className="grid grid-cols-3 gap-x-8">
 
-                                           <div className="position">
-                                           <label htmlFor="postion_type" className="text-lg font-bold font-sans">Postion/Role</label><br></br>
-                                              {
+                                           <div className="agent_name">
+                                           <label htmlFor="agent_name" className="text-lg font-bold font-sans">Agent</label><br></br>
+
+                                                  <select name="agent_name"  className="w-full rounded-md my-4">
+                                                  {
                                                 users.map(user => (
-                                                  <select name="postion_role" key={user.id} className="w-full rounded-md my-4">
-                                                    <option>{user.name}</option>
-                                                 </select>
-                                                ))
+                                                    <option key={user.id}>{user.name}</option>
+                                                    ))
                                               }
+                                                 </select>
+
                                            </div>
                                             <div className="properties_type">
                                                 <label htmlFor="addproperties" className="text-lg font-bold font-sans">Properties Type</label><br></br>
-                                                <input type="text" name="properties_type" required className="my-4 rounded-md w-full  bg-blue-50 outline-none"/>
+
+                                               <select name="properties_type"  className="w-full rounded-md my-4">
+                                               {
+                                                   properties.map(property => (
+                                                    <option key={property.id} className="my-4 rounded-md w-full   bg-blue-50 outline-none">{property.properties_categories}</option>
+                                                    ))
+                                                 }
+                                               </select>
+
                                               </div>
+
+                                              <div className="buy_rent">
+                                                   <label htmlFor="buyrent" className="text-lg font-bold font-sans">Buy Rent</label><br></br>
+                                                  <select name="buyrent" className="my-4 rounded-md w-full bg-blue-50 outline-none">
+                                                      {
+                                                         options.map(option => (
+                                                           <option key={option.id}>{option.sale_rent}</option>
+                                                         ))
+                                                      }
+                                                  </select>
+                                               </div>
 
                                               <div className="properties">
                                                 <label htmlFor="addproperties" className="text-lg font-bold font-sans">Number of Bedrooms</label><br></br>
@@ -72,7 +93,7 @@ function Create({auth, users}) {
                                                </div>
 
                                                <div className="built_year">
-                                                   <label htmlFor="built_year" className="text-lg font-bold font-sans">Location</label><br></br>
+                                                   <label htmlFor="built_year" className="text-lg font-bold font-sans">Year Built</label><br></br>
                                                    <input type="text" name="built_year" required className="my-4 rounded-md w-full bg-blue-50 outline-none" />
                                                </div>
 
@@ -83,17 +104,18 @@ function Create({auth, users}) {
 
 
                                                <div className="active">
-                                                   <label htmlFor="active" className="text-lg font-bold font-sans">Location</label><br></br>
+                                                   <label htmlFor="active" className="text-lg font-bold font-sans">Status</label><br></br>
                                                   <select name="active" className="my-4 rounded-md w-full bg-blue-50 outline-none">
-                                                       <option value="Active">Active</option>
-                                                       <option value="Inactive">Inactive</option>
+                                                       <option value="1">Active</option>
+                                                       <option value="2">Inactive</option>
                                                   </select>
                                                </div>
+
                                           </div>
 
                                           <div className="add_image">
                                              <label htmlFor="image" className="text-lg font-bold font-sans">Add Image</label><br></br>
-                                              <input type="text" name="image" required className="my-4 rounded-md  bg-blue-50 outline-none w-[35%]"  />
+                                              <input type="file" name="image" required className="my-4 rounded-md p-2 bg-blue-50 outline-none w-[35%]"  />
                                           </div>
 
                                           <div className="add_description">
@@ -102,7 +124,7 @@ function Create({auth, users}) {
                                           </div>
 
                                           <div className="submit-button flex gap-x-4">
-                                                <button className="bg-green-700 text-lg font-bold py-2 px-2 text-white rounded-md">Add Properties</button> <Link href='/agent/dashboard' aria-label="cancel" className="bg-red-700 text-lg font-bold py-2 px-5 text-white rounded-md" >Cancel</Link>
+                                                <button className="bg-green-700 text-lg font-bold py-2 px-2 text-white rounded-md">Add Properties</button> <Link href={route('add-properites.index')} aria-label="cancel" className="bg-red-700 text-lg font-bold py-2 px-5 text-white rounded-md" >Cancel</Link>
                                           </div>
                                    </form>
                            </div>

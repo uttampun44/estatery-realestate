@@ -11,12 +11,8 @@ class Option extends Model
 {
     protected $table = "options";
 
-    protected $fillable = ['sale_rent', 'properties_category_id'];
+    protected $fillable = ['sale_rent'];
 
-    public function adminproperties(): BelongsTo
-    {
-        return $this->belongsTo(Properties::class, 'properties_category_id');
-    }
 
     use HasFactory;
 }

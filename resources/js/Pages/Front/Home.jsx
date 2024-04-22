@@ -8,8 +8,8 @@ import { Link } from '@inertiajs/react';
 import Virtual from '../../../../public/images/homsalet_wo.jpg'
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import HouseIcon from '@mui/icons-material/House';
-
-
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import Footer from '../../Components/Footer';
 
 function Home() {
   return (
@@ -142,7 +142,7 @@ function Home() {
                             <div className='class-row bg-indigo-100 p-3 my-4 flex gap-x-4 w-[60%] rounded-md'>
                                  <span className='text-indigo-600 p-2 border-slate-100 border bg-white active'>For Rentants</span> <span className='text-slate-400 p-2'>For Landlords</span>
                             </div>
-                              <h2 className='text-3xl font-sans font-bold'>We make easy it easy for <br></br> tenants and landlords</h2>
+                              <h2 className='text-3xl font-sans font-bold text-blue-900'>We make easy it easy for <br></br> tenants and landlords</h2>
                               <p className='text-slate-400 my-6 text-lg'>Whether it's selling your current home, getting <br></br>
                               financing, or buying new home, we make it easy and <br></br>
                               efficient. The best part? you'll save a bunch of money <br></br>
@@ -156,20 +156,60 @@ function Home() {
               </div>
           </section>
 
-          {/****  new way to find  *******/}
-          <section>
-              <div className='mx-auto max-w-screen-home'>
-
-              </div>
-          </section>
-
           {/* **** Based on your location ***** */}
-          <section>
-               <div className='mx-auto max-w-screen-home'>
+          <section className='bg-indigo-50'>
+               <div className='mx-auto max-w-screen-home py-12'>
+                      <div className='based_location_title'>
+                           <h2 className='text-3xl font-sans font-bold text-blue-900'>Based On your Location</h2>
+                      </div>
+
+                      <div className='properties_near_location flex justify-between my-4'>
+                           <div><p className='text-slate-400 text-lg font-medium'>Some Of our picked properties near your location</p></div>
+                           <div className=''>
+                               <Link href='' className='bg-indigo-600 p-3 rounded-md text-white'>Browse More Properties</Link>
+                           </div>
+                      </div>
+                      <div className='cols-properties grid grid-cols-4'>
+                         <Link>
+                            <div className='bg-white'>
+                               <img src={Homeimage} />
+                                            <div className='description p-3 border-b-2'>
+                                              <div className='flex justify-between'>
+                                              <span className='text-indigo-600'>$ 2,700</span><span className='text-slate-400'>/ month</span> <FavoriteIcon className='text-indigo-500 cursor-pointer' />
+                                              </div>
+                                               <h6 className='text-lg font-semibold'>Beverly springfield</h6>
+                                               <span className='text-slate-400 font-normal'>2821 Lake Sevilla, Plain Harbour </span>
+                                            </div>
+
+                                            <div className='description-two p-3 flex gap-x-4'>
+                                               <div className='bedicon'>
+                                                 <BedIcon className='text-indigo-400'/><span>4</span>
+                                               </div>
+                                               <div className='bathtub'>
+                                                    <BathtubIcon className='text-indigo-400'  /><span>6</span>
+                                               </div>
+                                               <div className='landscape'>
+                                                    <LandscapeIcon className='text-indigo-400' /><span>4,300</span>
+                                               </div>
+                                            </div>
+                            </div>
+                            </Link>
+                      </div>
 
                </div>
           </section>
 
+          {/* ** testimonials  ** */}
+          <section className='bg-indigo-50'>
+                 <div className='mx-auto max-w-screen-home py-12'>
+                      <div className='testimonials_tests text-center'>
+                             <h2 className='text-3xl font-sans font-bold text-blue-900'>Testimonials</h2>
+                      </div>
+                      <div className='test-para text-center'>
+                          <p className='text-lg font-sans font-medium text-slate-400'>See what our property managers, landlords, and tenants have to say</p>
+                      </div>
+                 </div>
+          </section>
           {/****  Ar you landlords  ****/}
 
           <section className='bg-blue-900'>
@@ -195,6 +235,7 @@ function Home() {
           </section>
 
           </main>
+          <Footer />
     </div>
   )
 }
