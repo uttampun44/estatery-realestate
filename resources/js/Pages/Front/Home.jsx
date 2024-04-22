@@ -6,6 +6,9 @@ import LandscapeIcon from '@mui/icons-material/Landscape';
 import HomeTwo  from '../../../../public/images/hero-two.webp';
 import { Link } from '@inertiajs/react';
 import Virtual from '../../../../public/images/homsalet_wo.jpg'
+import YouTubeIcon from '@mui/icons-material/YouTube';
+import HouseIcon from '@mui/icons-material/House';
+
 
 
 function Home() {
@@ -40,6 +43,7 @@ function Home() {
                                              </div>
 
                                              <div className='location flex gap-x-8'>
+
                                                    <div className='locations'>
                                                       <span>Location</span><br></br>
                                                       <span>Barcelona</span>
@@ -53,6 +57,7 @@ function Home() {
                           </div>
                           <div className='row-two w-[50%] p-4'>
                                <div className='row-two-grid grid grid-cols-2 gap-x-12'>
+                                 <Link>
                                        <div className='home-grid-one  bg-white '>
                                             <img src={Homeimage} />
                                             <div className='description p-3 border-b-2'>
@@ -73,6 +78,7 @@ function Home() {
                                                </div>
                                             </div>
                                        </div>
+                                       </Link>
 
                                        <div className='two'>
 
@@ -83,6 +89,7 @@ function Home() {
                                        </div>
 
                                        <div className='four bg-white'>
+                                          <Link>
                                               <img src={HomeTwo} />
 
                                               <div className='description p-3 border-b-2'>
@@ -102,23 +109,39 @@ function Home() {
                                                     <LandscapeIcon className='text-indigo-400' /><span>4,300</span>
                                                </div>
                                             </div>
+                                            </Link>
                                        </div>
                                </div>
                           </div>
                      </div>
                  </div>
           </section>
-          <section className='virtual-tour py-8 px-4 bg-white'>
-              <div className='virtual-tour max-w-screen-home mx-auto py-8'>
-                     <div className='virtual-tour flex items-center gap-x-12'>
-                          <div className='virtual-one w-[50%]'>
+          <section className='virtual-tour my-12 px-4 bg-white relative'>
+              <div className='virtual-tour max-w-screen-home mx-auto py-12'>
+                     <div className='virtual-tour relative flex items-center gap-x-12'>
+                          <div className='virtual-one w-[50%] bg-indigo-100'>
                                <img src={Virtual} className='w-full h-full' />
-                               <div className='virtual-description'>
+                               <div className='virtual-description absolute top-[10%] left-[-5%] bg-indigo-100 flex gap-x-4 py-2 px-6 rounded-md'>
+                                   <div className='icon rounded-full p-2 bg-white'>
+                                      <YouTubeIcon className='text-indigo-600' />
+                                   </div>
+                                   <div>
+                                        <strong className='text-blue-900'>Virtual Tour Home</strong><br></br>
+                                        <span>We provide you with virtual tour</span>
+                                   </div>
+                               </div>
 
+                               <div className='find_the_deal bg-indigo-100 absolute bottom-[-10%] left-[10%] py-2 px-6 rounded-md'>
+                                     <HouseIcon  className='text-indigo-600 rounded-full p-1 bg-white relative top-[-20px]'/>
+                                     <strong className='text-blue-900'>Find the best deal</strong><br></br>
+                                     <span>Browse of thousand of properties</span>
                                </div>
                           </div>
 
                           <div className='virtual_two my-6 w-[50%]'>
+                            <div className='class-row bg-indigo-100 p-3 my-4 flex gap-x-4 w-[60%] rounded-md'>
+                                 <span className='text-indigo-600 p-2 border-slate-100 border bg-white active'>For Rentants</span> <span className='text-slate-400 p-2'>For Landlords</span>
+                            </div>
                               <h2 className='text-3xl font-sans font-bold'>We make easy it easy for <br></br> tenants and landlords</h2>
                               <p className='text-slate-400 my-6 text-lg'>Whether it's selling your current home, getting <br></br>
                               financing, or buying new home, we make it easy and <br></br>
@@ -132,6 +155,45 @@ function Home() {
                      </div>
               </div>
           </section>
+
+          {/****  new way to find  *******/}
+          <section>
+              <div className='mx-auto max-w-screen-home'>
+
+              </div>
+          </section>
+
+          {/* **** Based on your location ***** */}
+          <section>
+               <div className='mx-auto max-w-screen-home'>
+
+               </div>
+          </section>
+
+          {/****  Ar you landlords  ****/}
+
+          <section className='bg-blue-900'>
+               <div className='mx-auto max-w-screen-home py-12'>
+                       <div className='title_landlords text-center'>
+                             <span className='text-indigo-400 font-sans text-xl font-bold'>No Spam Promise</span>
+                             <h3 className='text-2xl font-bold text-white'>Are you a landlord ?</h3>
+                             <p className='text-slate-300 text-lg font-medium mb-4'>Discovery ways to increase your home's value and get listed. No Spam.</p>
+                       </div>
+                       <form>
+                       <div className='email flex justify-center my-4 w-[45%] mx-auto relative'>
+
+                          <input name='email' placeholder='Enter your email address' className='p-3 rounded-md w-full' />
+                           <button className='bg-indigo-600 text-white p-2 absolute right-[10px] top-1'>Submit</button>
+
+                       </div>
+                       </form>
+
+                       <div className='text-center'>
+                           <p className='text-slate-400 text-lg font-medium'>Join <span className='font-bold text-white'>10,000+ </span>others landlords in our estatery community</p>
+                       </div>
+               </div>
+          </section>
+
           </main>
     </div>
   )
