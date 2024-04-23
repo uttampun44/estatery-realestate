@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Agent;
 
 use App\Http\Controllers\Controller;
+use App\Models\Option\Option;
+use App\Models\Properties;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -14,6 +16,7 @@ class AgentaddpropertiesController extends Controller
      */
     public function index()
     {
+
         return Inertia::render('Agent/Addproperties/Index');
     }
 
@@ -22,10 +25,17 @@ class AgentaddpropertiesController extends Controller
      */
     public function create()
     {
+
         $users = User::where('role', 2)->get();
+        $properties = Properties::all();
+        $options = Option::all();
 
-
-        return Inertia::render('Agent/Addproperties/Create')->with('users', $users);
+        return Inertia::render('Agent/Addproperties/Create')->with(
+            [
+            'users' => $users,
+            'properties' => $properties,
+            'options' => $options
+        ]);
     }
 
     /**

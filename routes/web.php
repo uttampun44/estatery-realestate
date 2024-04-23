@@ -32,7 +32,7 @@ Route::middleware(['auth', 'verified', 'admin'])->group( function(){
 
 Route::middleware(['auth', 'verified', 'agents'])->group( function(){
    Route::get('/agent/dashboard', [AgentdashboardController::class, '__invoke'])->name('agent.dashboard');
-   Route::get('/agent/add-properites', [AgentaddpropertiesController::class, 'create'])->name('agentproperties.create');
+   Route::resource('/agent/add-properites', AgentaddpropertiesController::class);
 });
 
 
