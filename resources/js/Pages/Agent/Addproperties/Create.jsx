@@ -1,8 +1,34 @@
 import { Head,  Link } from "@inertiajs/react";
 import Sidebaragent from '../../../Components/Agentsidebar';
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { useState, useEffect } from "react";
+
 
 function Create({auth, users, properties, options}) {
+
+  const [editor, setEditor] = useState(null);
+
+    // useEffect(() => {
+    //     if (editor) {
+
+    //         console.log('Editor is ready to use', editor);
+    //     }
+    // }, [editor]);
+
+    useEffect(() => {
+      if (editor === null) {
+          ClassicEditor
+              .create(document.querySelector('#editor'))
+              .then(newEditor => {
+                  setEditor(newEditor);
+              })
+              .catch(error => {
+                  console.error(error);
+              });
+      }
+  }, [editor]);
+
 
   return (
     <div>
@@ -70,11 +96,18 @@ function Create({auth, users, properties, options}) {
 
                                                <div className="cooling">
                                                     <label htmlFor="cooling" className="text-lg font-bold font-sans">Cooling</label><br></br>
-                                                    <input type="text" name="cooling" required className="my-4 rounded-md w-full  bg-blue-50 outline-none" />
+
+                                                   <select name="cooling" className="my-4 rounded-md w-full  bg-blue-50 outline-none">
+                                                        <option value="1" >Yes</option>
+                                                        <option value="0" >No</option>
+                                                   </select>
                                                </div>
                                                <div className="heating">
                                                    <label htmlFor="heating" className="text-lg font-bold font-sans">Heating</label><br></br>
-                                                    <input type="text" name="heating" required className="my-4 rounded-md w-full  bg-blue-50 outline-none" />
+                                                   <select name="heating" className="my-4 rounded-md w-full  bg-blue-50 outline-none">
+                                                        <option value="1" >Yes</option>
+                                                        <option value="0" >No</option>
+                                                   </select>
                                                </div>
 
                                                <div className="parking-areas">
@@ -118,9 +151,9 @@ function Create({auth, users, properties, options}) {
                                               <input type="file" name="image" required className="my-4 rounded-md p-2 bg-blue-50 outline-none w-[35%]"  />
                                           </div>
 
-                                          <div className="add_description">
+                                          <div className="add_description mb-4">
                                                <label htmlFor="add_description" className="text-lg font-bold font-sans">Add Description</label><br></br>
-                                               <textarea name="add_description" className="my-4 rounded-md bg-blue-50 outline-none w-full"></textarea>
+                                               <textarea name="add_description" className="my-4 rounded-md bg-blue-50 outline-none w-full" id="editor"></textarea>
                                           </div>
 
                                           <div className="submit-button flex gap-x-4">
