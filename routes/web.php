@@ -23,16 +23,16 @@ use Inertia\Inertia;
 /**********Front END**********/
 Route::get('/', HomeController::class)->name('front.home');
 
-Route::middleware(['auth', 'verified', 'admin'])->group( function(){
-    Route::get('/admin/agent-details', [AgentsdetailsController::class, '__invoke']);
-    Route::get('/admin/dashboard', [AdmindashboardController::class, '__invoke'])->name('dashboard');
-    Route::resource('/admin/add-properties-category', AddpropertiesController::class);
+Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->group( function(){
+    Route::get('/agent-details', [AgentsdetailsController::class, '__invoke']);
+    Route::get('/dashboard', [AdmindashboardController::class, '__invoke'])->name('dashboard');
+    Route::resource('/add-properties-category', AddpropertiesController::class);
 
 });
 
-Route::middleware(['auth', 'verified', 'agents'])->group( function(){
-   Route::get('/agent/dashboard', [AgentdashboardController::class, '__invoke'])->name('agent.dashboard');
-   Route::resource('/agent/add-properites', AgentaddpropertiesController::class);
+Route::middleware(['auth', 'verified', 'agents'])->prefix('agent')->group( function(){
+   Route::get('/dashboard', [AgentdashboardController::class, '__invoke'])->name('agent.dashboard');
+   Route::resource('/add-properites', AgentaddpropertiesController::class);
 });
 
 

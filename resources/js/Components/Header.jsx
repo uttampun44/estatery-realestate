@@ -25,10 +25,10 @@ function header() {
 
                         <div className='login-singup flex gap-x-4 max-lg:hidden'>
                              <div className='login border cursor-pointer border-slate-400 py-2 px-6'>
-                                 <Link href='/login' aria-label='Login' className='text-lg font-bold'>Login</Link>
+                                 <Link href={route('login')} aria-label='Login' className='text-lg font-bold'>Login</Link>
                              </div>
                              <div className='signup singup_active cursor-pointer bg-indigo-600 text-white py-2 px-6 rounded-md'>
-                                  <Link aria-label='Signup' className='text-lg font-bold'>Signup</Link>
+                                  <Link href={route('register')} aria-label='Signup' className='text-lg font-bold'>Signup</Link>
                              </div>
                         </div>
 
