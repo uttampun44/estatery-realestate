@@ -44,25 +44,32 @@ class AgentaddpropertiesController extends Controller
     public function store(Request $request)
     {
 
-    //    $add_properties = $request->validate([
-    //        'agent_name' => 'required',
-    //        'properties_type' => 'required',
-    //        'buyrent' => 'required',
-    //        'addproperties' => 'required',
-    //        'bathroom' => 'required',
-    //        'squarearea' => 'required',
-    //        'cooling' => 'required',
-    //        'heating' => 'required',
-    //        'parking_areas' => 'required',
-    //        'deposit_fees' => 'required',
-    //        'built_year' => 'required',
-    //        'total_area' => 'required',
-    //        'active' => 'required',
-    //        'image' => 'required',
-    //        'add_description' => 'required'
-    //    ]);
+             try {
 
-        dd($request);
+             } catch (\Throwable $th) {
+
+             }
+
+       $add_properties = $request->validate([
+           'agent_name' => 'required',
+           'properties_type' => 'required',
+           'buyrent' => 'required',
+           'addproperties' => 'required',
+           'bathroom' => 'required',
+           'squarearea' => 'required',
+           'cooling' => 'required',
+           'heating' => 'required',
+           'parking_areas' => 'required',
+           'deposit_fees' => 'required',
+           'built_year' => 'required',
+           'total_area' => 'required',
+           'active' => 'required',
+           'image' => 'required',
+           'add_description' => 'required'
+       ]);
+
+
+        dd($request->input('cooling'));
 
 
     }
