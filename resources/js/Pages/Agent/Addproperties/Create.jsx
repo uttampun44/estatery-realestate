@@ -10,7 +10,7 @@ function Create({auth, users, properties, options}) {
 
   const [editor, setEditor] = useState(null);
 
-
+console.log(editor)
   const [addproperties, setProperties] = useState({
     'agent_name' : '',
     'properties_type' : '',
