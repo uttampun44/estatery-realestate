@@ -143,7 +143,12 @@ console.log(editor)
 
                                                <div className="parking-areas">
                                                    <label htmlFor="parkingareas" className="text-lg font-bold font-sans">Parking Areas</label><br></br>
-                                                    <input type="text" name="parking_areas" required className="my-4 rounded-md w-full bg-blue-50 outline-none" onChange={PropertiesVal} value={addproperties.parking_areas}  />
+                                                   <select name="total_area" required className="my-4 rounded-md w-full bg-blue-50 outline-none" onChange={PropertiesVal} value={addproperties.parking_areas} >
+                                                       <option>Select Parking Available</option>
+                                                       <option value="1">Yes</option>
+                                                       <option value="2">No</option>
+                                                   </select>
+                                                    {/* <input type="text" name="parking_areas" required  /> */}
                                                </div>
 
                                                <div className="deposit_fees">
@@ -162,7 +167,7 @@ console.log(editor)
                                                </div>
 
                                                <div className="total_area">
-                                                   <label htmlFor="total_area" className="text-lg font-bold font-sans">Total Area</label><br></br>
+                                                   <label htmlFor="total_area" className="text-lg font-bold font-sans">Lot Area</label><br></br>
                                                    <input type="text" name="total_area" required className="my-4 rounded-md w-full bg-blue-50 outline-none" onChange={PropertiesVal} value={addproperties.total_area} />
                                                </div>
 
