@@ -4,12 +4,20 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { useState, useEffect } from "react";
 import { Inertia } from "@inertiajs/inertia";
+import ControlPointIcon from "@mui/icons-material/ControlPoint";
 
 function Create({ auth, users, properties, options }) {
     const [editor, setEditor] = useState(null);
 
+    const actives = [
+        { value: 1, label: "Yes" },
+        { value: 2, label: "No" },
+    ];
+
+    // console.log();
+
     const [addproperties, setProperties] = useState({
-        agent_name: "",
+        agent_name: users[0].name,
         properties_type: "",
         buyrent: "",
         addproperties: "",
@@ -24,15 +32,27 @@ function Create({ auth, users, properties, options }) {
         total_area: "",
         active: "",
         image: "",
-        add_description: "",
+        description: "",
     });
+
+    console.log(addproperties.description)
 
     const PropertiesVal = (e) => {
         const { name, value } = e.target;
+
+
+        if(name === "description"){
+            setProperties({
+                ...addproperties,
+                description: value,
+            });
+            console.log(value);
+        }else{
         setProperties({
             ...addproperties,
             [name]: value,
         });
+      }
     };
 
     useEffect(() => {
@@ -53,6 +73,9 @@ function Create({ auth, users, properties, options }) {
         Inertia.post(route("add-properites.store"), addproperties);
     };
 
+    const Addimage = () =>{
+       alert("checking");
+    }
     return (
         <div>
             <Sidebaragent />
@@ -74,23 +97,15 @@ function Create({ auth, users, properties, options }) {
                                             </label>
                                             <br></br>
 
-                                            <select
+                                            <input
                                                 name="agent_name"
                                                 className="w-full rounded-md my-4"
-                                            >
-                                                {users.map((user) => (
-                                                    <option
-                                                        key={user.id}
-                                                        onChange={PropertiesVal}
-                                                        value={
-                                                            addproperties.agent_name
-                                                        }
-                                                    >
-                                                        {user.name}
-                                                    </option>
-                                                ))}
-                                            </select>
+                                                value={addproperties.agent_name}
+                                                onChange={PropertiesVal}
+                                                readOnly="readonly"
+                                            />
                                         </div>
+
                                         <div className="properties_type">
                                             <label
                                                 htmlFor="addproperties"
@@ -103,15 +118,19 @@ function Create({ auth, users, properties, options }) {
                                             <select
                                                 name="properties_type"
                                                 className="w-full rounded-md my-4"
+                                                onChange={PropertiesVal}
+                                                value={
+                                                    addproperties.properties_type
+                                                }
                                             >
+                                                <option>
+                                                    Select Properties Type
+                                                </option>
                                                 {properties.map((property) => (
                                                     <option
                                                         key={property.id}
                                                         className="my-4 rounded-md w-full   bg-blue-50 outline-none"
-                                                        onChange={PropertiesVal}
-                                                        value={
-                                                            addproperties.properties_type
-                                                        }
+                                                        value={property.id}
                                                     >
                                                         {
                                                             property.properties_categories
@@ -132,14 +151,14 @@ function Create({ auth, users, properties, options }) {
                                             <select
                                                 name="buyrent"
                                                 className="my-4 rounded-md w-full bg-blue-50 outline-none"
+                                                onChange={PropertiesVal}
+                                                value={addproperties.buyrent}
                                             >
+                                                <option>Select Buy/Rent</option>
                                                 {options.map((option) => (
                                                     <option
                                                         key={option.id}
-                                                        onChange={PropertiesVal}
-                                                        value={
-                                                            addproperties.buyrent
-                                                        }
+                                                        value={option.id}
                                                     >
                                                         {option.sale_rent}
                                                     </option>
@@ -215,6 +234,8 @@ function Create({ auth, users, properties, options }) {
                                             <select
                                                 name="cooling"
                                                 className="my-4 rounded-md w-full  bg-blue-50 outline-none"
+                                                value={addproperties.cooling}
+                                                onChange={PropertiesVal}
                                             >
                                                 <option>Select Cooling</option>
                                                 <option value="1">Yes</option>
@@ -250,7 +271,7 @@ function Create({ auth, users, properties, options }) {
                                             </label>
                                             <br></br>
                                             <select
-                                                name="total_area"
+                                                name="parking_areas"
                                                 required
                                                 className="my-4 rounded-md w-full bg-blue-50 outline-none"
                                                 onChange={PropertiesVal}
@@ -264,7 +285,6 @@ function Create({ auth, users, properties, options }) {
                                                 <option value="1">Yes</option>
                                                 <option value="2">No</option>
                                             </select>
-                                            {/* <input type="text" name="parking_areas" required  /> */}
                                         </div>
 
                                         <div className="deposit_fees">
@@ -356,12 +376,15 @@ function Create({ auth, users, properties, options }) {
                                                 onChange={PropertiesVal}
                                             >
                                                 <option>Select Active</option>
-                                                <option value="1">
-                                                    Active
-                                                </option>
-                                                <option value="2">
-                                                    Inactive
-                                                </option>
+
+                                                {actives.map((activ, index) => (
+                                                    <option
+                                                        key={index}
+                                                        value={activ.value}
+                                                    >
+                                                        {activ.label}
+                                                    </option>
+                                                ))}
                                             </select>
                                         </div>
                                     </div>
@@ -382,6 +405,7 @@ function Create({ auth, users, properties, options }) {
                                             onChange={PropertiesVal}
                                             value={addproperties.image}
                                         />
+                                        <ControlPointIcon className="cursor-pointer ml-2 text-green-700" onClick={Addimage} />
                                     </div>
 
                                     <div className="add_description mb-4">
@@ -393,12 +417,12 @@ function Create({ auth, users, properties, options }) {
                                         </label>
                                         <br></br>
                                         <textarea
-                                            name="add_description"
+                                            name="description"
                                             className="my-4 rounded-md bg-blue-50 outline-none w-full"
                                             id="editor"
                                             onChange={PropertiesVal}
                                             value={
-                                                addproperties.add_description
+                                                addproperties.description
                                             }
                                         ></textarea>
                                     </div>
@@ -406,7 +430,7 @@ function Create({ auth, users, properties, options }) {
                                     <div className="submit-button flex gap-x-4">
                                         <button className="bg-green-700 text-lg font-bold py-2 px-2 text-white rounded-md">
                                             Add Properties
-                                        </button>{" "}
+                                        </button>
                                         <Link
                                             href={route("add-properites.index")}
                                             aria-label="cancel"

@@ -9,6 +9,7 @@ use App\Models\Properties;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Log;
 
 class AgentaddpropertiesController extends Controller
 {
@@ -49,7 +50,7 @@ class AgentaddpropertiesController extends Controller
 
                  $add_properties = new Addproperties();
 
-                 $add_properties->agent_name =  $request->input('agent_name');
+                 $add_properties->agent_name = $request->input('agent_name');;
                  $add_properties->properties_types = $request->input('properties_type');
                  $add_properties->buy_rent = $request->input('buyrent');
                  $add_properties->number_of_bedrooms = $request->input('addproperties');
@@ -64,18 +65,19 @@ class AgentaddpropertiesController extends Controller
                  $add_properties->total_areas = $request->input('total_area');
                  $add_properties->status = $request->input('active');
                  $add_properties->image = $request->input('image');
-                 $add_properties->description  = $request->input('add_description');
+                 $add_properties->description = $request->input('description');
                  $add_properties->agent_id = $request->input('agent_name');
 
                  dd($add_properties);
 
                  $add_properties->save();
 
+
                  return redirect()->route('add-properites.index');
 
              } catch (\Throwable $th) {
 
-                Addproperties::error($th);
+                Log::error($th);
 
                 return back()->with('error', 'An error occurred while saving the property. Please try again later.');
              }
