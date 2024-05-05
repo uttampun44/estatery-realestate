@@ -1,20 +1,19 @@
 import { Head, Link } from "@inertiajs/react";
 import Sidebaragent from "../../../Components/Agentsidebar";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Inertia } from "@inertiajs/inertia";
 import ControlPointIcon from "@mui/icons-material/ControlPoint";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 function Create({ auth, users, properties, options }) {
-    const [editor, setEditor] = useState(null);
-
     const actives = [
-        { value: 1, label: "Yes" },
-        { value: 2, label: "No" },
+        { value: 1, label: "Active" },
+        { value: 2, label: "Inactive" },
     ];
-
-    // console.log();
+    const [inputFields, setinputFields] = useState([]);
 
     const [addproperties, setProperties] = useState({
         agent_name: users[0].name,
@@ -31,41 +30,17 @@ function Create({ auth, users, properties, options }) {
         built_year: "",
         total_area: "",
         active: "",
-        image: "",
+        image: inputFields,
         description: "",
     });
 
-    console.log(addproperties.description)
-
     const PropertiesVal = (e) => {
         const { name, value } = e.target;
-
-
-        if(name === "description"){
-            setProperties({
-                ...addproperties,
-                description: value,
-            });
-            console.log(value);
-        }else{
         setProperties({
             ...addproperties,
             [name]: value,
         });
-      }
     };
-
-    useEffect(() => {
-        if (editor === null) {
-            ClassicEditor.create(document.querySelector("#editor"))
-                .then((newEditor) => {
-                    setEditor(newEditor);
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
-        }
-    }, [editor]);
 
     const createProperties = (event) => {
         event.preventDefault();
@@ -73,9 +48,34 @@ function Create({ auth, users, properties, options }) {
         Inertia.post(route("add-properites.store"), addproperties);
     };
 
-    const Addimage = () =>{
-       alert("checking");
-    }
+    const Addimage = () => {
+        setinputFields([
+            ...inputFields,
+            <input
+                key={inputFields.length}
+                type="file"
+                className="my-4 rounded-md p-2 bg-blue-50 outline-none w-[35%]"
+                name="image"
+            />,
+        ]);
+        console.log(inputFields);
+    };
+
+    const removeImage = () => {
+        if (inputFields.length > 0) {
+            setinputFields(inputFields.slice(0, -1));
+        }
+    };
+
+    const handleEditorChange = (event, editor) => {
+        const data = editor.getData();
+
+        setProperties((prevState) => ({
+            ...prevState,
+            description: data,
+        }));
+    };
+
     return (
         <div>
             <Sidebaragent />
@@ -405,7 +405,23 @@ function Create({ auth, users, properties, options }) {
                                             onChange={PropertiesVal}
                                             value={addproperties.image}
                                         />
-                                        <ControlPointIcon className="cursor-pointer ml-2 text-green-700" onClick={Addimage} />
+                                        {inputFields.map(
+                                            (inputField, index) => (
+                                                <div key={index} className="flex">
+                                                    {inputField}
+                                                    <DeleteIcon
+                                                        onClick={removeImage}
+                                                        style={{ color: "red" }}
+                                                        className="cursor-pointer"
+                                                    />
+                                                </div>
+                                            )
+                                        )}
+
+                                        <ControlPointIcon
+                                            className="cursor-pointer ml-2 text-green-700"
+                                            onClick={Addimage}
+                                        />
                                     </div>
 
                                     <div className="add_description mb-4">
@@ -416,15 +432,11 @@ function Create({ auth, users, properties, options }) {
                                             Add Description
                                         </label>
                                         <br></br>
-                                        <textarea
-                                            name="description"
-                                            className="my-4 rounded-md bg-blue-50 outline-none w-full"
-                                            id="editor"
-                                            onChange={PropertiesVal}
-                                            value={
-                                                addproperties.description
-                                            }
-                                        ></textarea>
+
+                                        <CKEditor
+                                            editor={ClassicEditor}
+                                            onChange={handleEditorChange}
+                                        />
                                     </div>
 
                                     <div className="submit-button flex gap-x-4">
