@@ -8,6 +8,7 @@ use App\Models\Option\Option;
 use App\Models\Properties;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Log;
 
@@ -48,7 +49,10 @@ class AgentaddpropertiesController extends Controller
 
              try {
 
+
                  $add_properties = new Addproperties();
+
+                 $description = $request->input('description');
 
                  $add_properties->agent_name = $request->input('agent_name');;
                  $add_properties->properties_types = $request->input('properties_type');
@@ -66,9 +70,9 @@ class AgentaddpropertiesController extends Controller
                  $add_properties->status = $request->input('active');
                  $add_properties->image = $request->input('image');
                  $add_properties->description = $request->input('description');
-                 $add_properties->agent_id = $request->input('agent_name');
+                 $add_properties->agent_id = Auth::user()->id;
 
-                 dd($add_properties);
+                 dd($request->toArray());
 
                  $add_properties->save();
 
