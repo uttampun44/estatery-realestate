@@ -13,24 +13,26 @@ function Create({ auth, users, properties, options }) {
         { value: 1, label: "Active" },
         { value: 2, label: "Inactive" },
     ];
-    const [inputFields, setinputFields] = useState([]);
+
+    const [file, setFile] = useState([{ image: "" }]);
 
     const [addproperties, setProperties] = useState({
         agent_name: users[0].name,
         properties_type: "",
         buyrent: "",
-        addproperties: "",
+        number_of_bedrooms: "",
         bathroom: "",
         squarearea: "",
         cooling: "",
         heating: "",
         parking_areas: "",
         deposit_fees: "",
+        original_price: "",
         location: "",
         built_year: "",
         total_area: "",
         active: "",
-        image: inputFields,
+        image: "",
         description: "",
     });
 
@@ -49,25 +51,16 @@ function Create({ auth, users, properties, options }) {
     };
 
     const Addimage = () => {
-        setinputFields([
-            ...inputFields,
-            <input
-                key={inputFields.length}
-                type="file"
-                className="my-4 rounded-md p-2 bg-blue-50 outline-none w-[35%]"
-                name="image"
-            />,
-        ]);
-        console.log(inputFields);
+        setFile([...file, { image: "" }]);
     };
 
     const removeImage = () => {
-        if (inputFields.length > 0) {
-            setinputFields(inputFields.slice(0, -1));
+        if (file.length > 0) {
+            setFile(file.slice(0, -1));
         }
     };
 
-    const handleEditorChange = (event, editor) => {
+    const handleEditorChange = (e, editor) => {
         const data = editor.getData();
 
         setProperties((prevState) => ({
@@ -176,12 +169,12 @@ function Create({ auth, users, properties, options }) {
                                             <br></br>
                                             <input
                                                 type="text"
-                                                name="addproperties"
+                                                name="number_of_bedrooms"
                                                 required
                                                 className="my-4 rounded-md w-full  bg-blue-50 outline-none"
                                                 onChange={PropertiesVal}
                                                 value={
-                                                    addproperties.addproperties
+                                                    addproperties.number_of_bedrooms
                                                 }
                                             />
                                         </div>
@@ -307,6 +300,26 @@ function Create({ auth, users, properties, options }) {
                                             />
                                         </div>
 
+                                        <div className="original_price">
+                                            <label
+                                                htmlFor="original_price"
+                                                className="text-lg font-bold font-sans"
+                                            >
+                                                Origianl Price
+                                            </label>
+                                            <br></br>
+                                            <input
+                                                type="text"
+                                                name="original_price"
+                                                required
+                                                className="my-4 rounded-md w-full bg-blue-50 outline-none"
+                                                onChange={PropertiesVal}
+                                                value={
+                                                    addproperties.original_price
+                                                }
+                                            />
+                                        </div>
+
                                         <div className="location">
                                             <label
                                                 htmlFor="location"
@@ -397,31 +410,32 @@ function Create({ auth, users, properties, options }) {
                                             Add Image
                                         </label>
                                         <br></br>
-                                        <input
-                                            type="file"
-                                            name="image"
-                                            required
-                                            className="my-4 rounded-md p-2 bg-blue-50 outline-none w-[35%]"
-                                            onChange={PropertiesVal}
-                                            value={addproperties.image}
-                                        />
-                                        {inputFields.map(
-                                            (inputField, index) => (
-                                                <div key={index} className="flex">
-                                                    {inputField}
-                                                    <DeleteIcon
-                                                        onClick={removeImage}
-                                                        style={{ color: "red" }}
-                                                        className="cursor-pointer"
-                                                    />
-                                                </div>
-                                            )
-                                        )}
 
-                                        <ControlPointIcon
-                                            className="cursor-pointer ml-2 text-green-700"
-                                            onClick={Addimage}
-                                        />
+                                        {file.map((imageFile, index) => (
+                                            <div
+                                                key={index}
+                                                className="flex items-center"
+                                            >
+                                                <input
+                                                    type="file"
+                                                    name="image"
+                                                    required
+                                                    className="my-4 rounded-md p-2 bg-blue-50 outline-none w-[35%]"
+                                                    onChange={Addimage}
+                                                    value={addproperties.image}
+                                                />
+
+                                                <ControlPointIcon
+                                                    className="cursor-pointer ml-2 text-green-700"
+                                                    onClick={Addimage}
+                                                />
+                                                <DeleteIcon
+                                                    onClick={removeImage}
+                                                    style={{ color: "red" }}
+                                                    className="cursor-pointer"
+                                                />
+                                            </div>
+                                        ))}
                                     </div>
 
                                     <div className="add_description mb-4">
