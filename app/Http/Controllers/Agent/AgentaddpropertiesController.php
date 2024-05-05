@@ -49,30 +49,47 @@ class AgentaddpropertiesController extends Controller
 
              try {
 
+                 $option_id =   $request->input('buyrent');
+                 $properties_id = $request->input('properties_type');
+
+                 $option = Option::find($option_id);
+                 $properties = Properties::find($properties_id);
 
                  $add_properties = new Addproperties();
 
-                 $description = $request->input('description');
+                 dd($request->hasFile('image'));
+
+                 $images = [];
+
+                 if($request->hasFile('image'))
+                 {
+                    foreach ($request->file('image') as  $image) {
+                        $image_file = $image->store('public', 'uploads');
+                        $images[] = $image_file;
+                    }
+                 }
+
 
                  $add_properties->agent_name = $request->input('agent_name');;
-                 $add_properties->properties_types = $request->input('properties_type');
-                 $add_properties->buy_rent = $request->input('buyrent');
-                 $add_properties->number_of_bedrooms = $request->input('addproperties');
+                 $add_properties->properties_types = $properties->id;
+                 $add_properties->buy_rent = $option->id;
+                 $add_properties->number_of_bedrooms = $request->input('number_of_bedrooms');
                  $add_properties->number_of_bathrooms = $request->input('bathroom');
                  $add_properties->square_areas = $request->input('squarearea');
                  $add_properties->cooling = $request->input('cooling');
                  $add_properties->heating = $request->input('heating');
                  $add_properties->parking_areas = $request->input('parking_areas');
                  $add_properties->depost_fee = $request->input('deposit_fees');
+                 $add_properties->original_price = $request->input('original_price');
                  $add_properties->location = $request->input('location');
                  $add_properties->year_built = $request->input('built_year');
                  $add_properties->total_areas = $request->input('total_area');
                  $add_properties->status = $request->input('active');
-                 $add_properties->image = $request->input('image');
+                 $add_properties->image = $images;
                  $add_properties->description = $request->input('description');
                  $add_properties->agent_id = Auth::user()->id;
 
-                 dd($request->toArray());
+                 dd($add_properties->toArray());
 
                  $add_properties->save();
 
