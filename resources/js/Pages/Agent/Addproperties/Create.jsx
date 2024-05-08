@@ -14,7 +14,9 @@ function Create({ auth, users, properties, options }) {
         { value: 2, label: "Inactive" },
     ];
 
-    const [file, setFile] = useState([{ image: "" }]);
+    const [file, setFile] = useState([]);
+
+    console.log(file);
 
     const [addproperties, setProperties] = useState({
         agent_name: users[0].name,
@@ -47,11 +49,22 @@ function Create({ auth, users, properties, options }) {
     const createProperties = (event) => {
         event.preventDefault();
 
-        Inertia.post(route("add-properites.store"), addproperties);
+        Inertia.post(route('add-properites.store'), addproperties);
     };
 
-    const Addimage = () => {
-        setFile([...file, { image: "" }]);
+    const Addimage = (event) => {
+        const selectedFiles = event.target.files;
+
+        const filesArray = Array.from(selectedFiles);
+
+        const firstImageURL = filesArray.length > 0 ? URL.createObjectURL(filesArray[0]) : '';
+
+        setProperties(prevState => ({
+            ...prevState,
+            image: firstImageURL
+        }));
+
+        setFile([...file, ...filesArray]);
     };
 
     const removeImage = () => {
@@ -411,23 +424,27 @@ function Create({ auth, users, properties, options }) {
                                         </label>
                                         <br></br>
 
-                                        {file.map((imageFile, index) => (
-                                            <div
-                                                key={index}
-                                                className="flex items-center"
-                                            >
-                                                <input
-                                                    type="file"
-                                                    name="image"
-                                                    required
-                                                    className="my-4 rounded-md p-2 bg-blue-50 outline-none w-[35%]"
-                                                    onChange={Addimage}
-                                                    value={addproperties.image}
-                                                />
+                                        <div className="flex items-center">
+                                            <input
+                                                type="file"
+                                                name="image"
+                                                required
+                                                className="my-4 rounded-md p-2 bg-blue-50 outline-none w-[35%]"
+                                                onChange={Addimage}
+                                            />
+                                        </div>
 
-                                                <ControlPointIcon
-                                                    className="cursor-pointer ml-2 text-green-700"
-                                                    onClick={Addimage}
+                                    </div>
+
+                                 <div className="grid grid-cols-3 gap-x-4 rounded-md p-4">
+                                    {file.map((file, index) => (
+                                            <div className="w-full" key={index}>
+                                                <img
+                                                    src={URL.createObjectURL(
+                                                        file
+                                                    )}
+                                                    alt={`Image ${index}`}
+                                                    className="w-full h-40 object-contain"
                                                 />
                                                 <DeleteIcon
                                                     onClick={removeImage}
@@ -436,8 +453,7 @@ function Create({ auth, users, properties, options }) {
                                                 />
                                             </div>
                                         ))}
-                                    </div>
-
+                                     </div>
                                     <div className="add_description mb-4">
                                         <label
                                             htmlFor="add_description"
@@ -447,10 +463,13 @@ function Create({ auth, users, properties, options }) {
                                         </label>
                                         <br></br>
 
-                                        <CKEditor
+                                         <CKEditor
                                             editor={ClassicEditor}
                                             onChange={handleEditorChange}
+                                            name="description"
                                         />
+
+
                                     </div>
 
                                     <div className="submit-button flex gap-x-4">

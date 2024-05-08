@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Log;
 
+
 class AgentaddpropertiesController extends Controller
 {
     /**
@@ -55,9 +56,6 @@ class AgentaddpropertiesController extends Controller
                  $option = Option::find($option_id);
                  $properties = Properties::find($properties_id);
 
-                 $add_properties = new Addproperties();
-
-                 dd($request->hasFile('image'));
 
                  $images = [];
 
@@ -70,29 +68,29 @@ class AgentaddpropertiesController extends Controller
                  }
 
 
-                 $add_properties->agent_name = $request->input('agent_name');;
-                 $add_properties->properties_types = $properties->id;
-                 $add_properties->buy_rent = $option->id;
-                 $add_properties->number_of_bedrooms = $request->input('number_of_bedrooms');
-                 $add_properties->number_of_bathrooms = $request->input('bathroom');
-                 $add_properties->square_areas = $request->input('squarearea');
-                 $add_properties->cooling = $request->input('cooling');
-                 $add_properties->heating = $request->input('heating');
-                 $add_properties->parking_areas = $request->input('parking_areas');
-                 $add_properties->depost_fee = $request->input('deposit_fees');
-                 $add_properties->original_price = $request->input('original_price');
-                 $add_properties->location = $request->input('location');
-                 $add_properties->year_built = $request->input('built_year');
-                 $add_properties->total_areas = $request->input('total_area');
-                 $add_properties->status = $request->input('active');
-                 $add_properties->image = $images;
-                 $add_properties->description = $request->input('description');
-                 $add_properties->agent_id = Auth::user()->id;
 
-                 dd($add_properties->toArray());
+                 $add_properties = Addproperties::create([
+                    'agent_name' => $request->input('agent_name'),
+                    'properties_types' => $properties->id,
+                    'buy_rent' => $option->id,
+                    'number_of_bedrooms' => $request->input('number_of_bedrooms'),
+                    'number_of_bathrooms'=> $request->input('bathroom'),
+                    'square_areas' => $request->input('squarearea'),
+                    'cooling' => $request->input('cooling'),
+                    'heating' => $request->input('heating'),
+                    'parking_areas' => $request->input('parking_areas'),
+                    'depost_fee' => $request->input('deposit_fees'),
+                    'original_price' => $request->input('original_price'),
+                    'location' => $request->input('location'),
+                    'year_built' => $request->input('built_year'),
+                    'total_area' =>  $request->input('total_area'),
+                    'status' => $request->input('active'),
+                    'image' => $images,
+                    'description' => $request->input('description'),
+                    'agent_id' => Auth::user()->id,
+                 ]);
 
                  $add_properties->save();
-
 
                  return redirect()->route('add-properites.index');
 
